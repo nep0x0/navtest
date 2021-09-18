@@ -37,7 +37,7 @@ webSocket.onmessage = (event) => {
     portofolio.innerHTML = 'WALLET : ' + ptf;
 
     if(orderStatus == true) {
-        let percentage = ((lastPrice - placeOrder)/placeOrder)*100;
+        let percentage = ((lastPrice - placeOrder)/placeOrder)*100*20;
         document.getElementById("percentage").innerHTML = 'PNL ' + percentage.toFixed(4) + '%';
     } else {
         
