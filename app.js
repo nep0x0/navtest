@@ -1,4 +1,4 @@
-let webSocket = new WebSocket('wss://stream.binance.com:9443/ws/bnbusdt@trade');
+let webSocket = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@trade');
 
 let coinSymbol = document.getElementById('coinSymbol');
 
@@ -34,10 +34,10 @@ webSocket.onmessage = (event) => {
     lastPrice = price;
     
     ptf = quantity*lastPrice;
-    portofolio.innerHTML = 'WALLET : ' + ptf;
+    portofolio.innerHTML = 'FUTURE: ' + ptf;
 
     if(orderStatus == true) {
-        let percentage = ((lastPrice - placeOrder)/placeOrder)*100*20;
+        let percentage = ((lastPrice - placeOrder)/placeOrder)*100*125;
         document.getElementById("percentage").innerHTML = 'PNL ' + percentage.toFixed(4) + '%';
     } else {
         
