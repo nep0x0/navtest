@@ -4,47 +4,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Page</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Pacifico&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Trading Demo</title>
 </head>
 <body>
-    <nav>
-        <div class="logo">
-            <h4>Riri & Nep</h4>
-        </div>
+    <h1>Virtual Trade Platform by Nep</h1>
+    <p>You can learn how to trade without using real money</p>
+    <br>
+    <br>
+    <h2 id="coinSymbol">---</h1>
+    <h3 id="coinPrice">---</h1>
 
-        <ul>
-            <li><a href="">Home</a></li>
-            <li><a href="">Product</a></li>
-            <li><a href="">Service</a></li>
-            <li><a href="">Gallery</a></li>
-            <li><a href="">About</a></li>
-        </ul>
 
-        <div class="menu-toggle">
-            <input type="checkbox" />
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </nav>
+    <div class="container">
+        <input type="text" id="quantity" placeholder="amount" value="">
+		<p></p>
+        <button type="button" class="action-btn" id="buy" onclick="buyFunction()">Market Buy</button>
+		<button type="button" class="action-btn" id="sell">Market Sell</button>
 
-<script src="script.js"></script>
-<script>
-        let binanceSocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@trade");
+        <p id="demo"></p>
 
-        let tradeDiv = document.getElementById('trades');
+        <p id="portofolio"></p>
+        <p id="percentage"></p>
+	</div>
 
-        binanceSocket.onmessage = function (event) {
-            console.log(event.data);
-            
-            let messageObject = JSON.parse(event.data);
 
-            tradeDiv.append(messageObject.p);
-        }
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
