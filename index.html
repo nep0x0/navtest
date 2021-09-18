@@ -33,5 +33,18 @@
     </nav>
 
 <script src="script.js"></script>
+<script>
+        let binanceSocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@trade");
+
+        let tradeDiv = document.getElementById('trades');
+
+        binanceSocket.onmessage = function (event) {
+            console.log(event.data);
+            
+            let messageObject = JSON.parse(event.data);
+
+            tradeDiv.append(messageObject.p);
+        }
+    </script>
 </body>
 </html>
