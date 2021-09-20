@@ -1,4 +1,4 @@
-let webSocket = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@trade');
+let webSocket = new WebSocket('wss://fstream.binance.com/ws/btcusdt@trade');
 
 let coinSymbol = document.getElementById('coinSymbol');
 
