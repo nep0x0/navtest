@@ -35,7 +35,10 @@ webSocket.onmessage = (event) => {
     
     ptf = quantity*lastPrice;
     portofolio.innerHTML = 'FUTURE: ' + ptf;
-
+    
+    let profit = ptf - (placeOrder*quantity);
+    document.getElementById("profit").innerHTML = profit;
+    
     if(orderStatus == true) {
         let percentage = ((lastPrice - placeOrder)/placeOrder)*100*125;
         document.getElementById("percentage").innerHTML = 'PNL ' + percentage.toFixed(4) + '%';
