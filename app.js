@@ -36,7 +36,7 @@ webSocket.onmessage = (event) => {
     coinSymbol.style.color = 'white'
 
     let price = parseFloat(coinObject.p);
-    coinPriceElement.innerText = price;
+    // coinPriceElement.innerText = price;
     coinPriceElement.style.color = !lastPrice || lastPrice === price ? 'white' : price > lastPrice ? 'green' : 'red';
     
     lastPrice = price;
@@ -106,3 +106,56 @@ function sellFunction() {
         document.getElementById("demo").innerHTML = 'Pembelian Gagal';
     }  
 }
+
+//chart
+const log = console.log;
+
+const chartProperties = {
+  width:500,
+  height:200,
+  timeScale:{
+    timeVisible:true,
+    secondsVisible:false,
+  }
+}
+
+const domElement = document.getElementById('tvchart');
+const chart = LightweightCharts.createChart(domElement,chartProperties);
+const candleSeries = chart.addCandlestickSeries();
+
+// https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m&limit=1000
+
+fetch(`https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1m&limit=1000`)
+  .then(res => res.json())
+  .then(data => {
+    const cdata = data.map(d => {
+      return {time:d[0]/1000,open:parseFloat(d[1]),high:parseFloat(d[2]),low:parseFloat(d[3]),close:parseFloat(d[4])}
+    });
+    candleSeries.setData(cdata);
+  })
+  .catch(err => log(err))
+
+let fWebSocket = new WebSocket('wss://fstream.binance.com/ws/btcusdt@kline_1m');
+
+fWebSocket.onmessage = (event) => {
+  let coinObject = JSON.parse(event.data);
+  let fprice = parseFloat(coinObject.k.c);
+  coinPriceElement.innerText = fprice;
+
+  let pl = {
+    time: [coinObject.k.t]/1000,
+    open: parseFloat(coinObject.k.o),
+    high: parseFloat(coinObject.k.h),
+    low: parseFloat(coinObject.k.l),
+    close: parseFloat(coinObject.k.c),
+  }
+  // console.log(pl);
+  candleSeries.update(pl);
+}
+
+
+
+
+
+
+
